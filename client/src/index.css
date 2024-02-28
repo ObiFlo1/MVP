@@ -23,7 +23,7 @@ input {
   border: 1.5px solid rgb(230, 232, 236);
 }
 
-.list-header {
+.header {
   width: 100%;
   display: flex;
   justify-content: space-between;

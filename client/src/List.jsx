@@ -1,13 +1,11 @@
-function List() {
-  const item = [];
-
+function List({ items }) {
   return (
     <div className="list">
-      <div>
-        {item.map((item) => (
-          <div key={index}>{item}</div>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

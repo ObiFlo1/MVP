@@ -2,14 +2,21 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Landing from "./Landing.jsx";
 import Header from "./Header.jsx";
+import List from "./List.jsx";
 
 function App() {
   const [window, setWindow] = useState("landing");
   const [backendData, setBackendData] = useState([{}]);
   const [saveInput, setSaveInput] = useState("");
+  const [items, setItems] = useState([]);
 
-  function handeSaveInput(input) {
+  function handleSaveInput(input) {
     setSaveInput(input);
+  }
+  function toggle() {
+    setWindow((prevWindow) =>
+      prevWindow === "landing" ? "header" : "landing"
+    );
   }
 
   //this is to get data
@@ -21,33 +28,30 @@ function App() {
         console.log(data);
       });
   }, []);
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
 
-  //
-
-  function toggle() {
-    if (window === "landing") {
-      setWindow("header");
-    }
-    if (window === "header") {
-      setWindow("landing");
-    }
-  }
-
-  if (window === "landing") {
-    return (
-      //render the landing component
-      <div className="app">
-        <Landing toggle={toggle} onSaveInput={handeSaveInput} />
-      </div>
-    );
-  } else {
-    return (
-      // render the header component
-      <div className="app">
-        <Header toggle={toggle} saveInput={saveInput} />
-      </div>
-    );
-  }
+  return (
+    <div className="app">
+      {window === "landing" ? (
+        <Landing toggle={toggle} onSaveInput={handleSaveInput} />
+      ) : (
+        <>
+          <Header saveInput={saveInput} toggle={toggle} />
+          <List items={items} />
+          <footer className="footer">
+            <div>
+              <input />
+              <button className="button" onClick={toggle}>
+                Save & Exit
+              </button>
+            </div>
+          </footer>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default App;
@@ -60,3 +64,30 @@ export default App;
 // onClick = save new variable(in nextWindow) display nextwindow with <div>{next window}</div>
 
 //my logic makes senes until i start trying it and then the logic falls apart
+
+// function toggle() {
+//   if (window === "landing") {
+//     setWindow("header");
+//   }
+//   if (window === "header") {
+//     setWindow("landing");
+//   }
+// }
+
+// if (window === "landing") {
+//   return (
+//     //render the landing component
+//     <div className="app">
+//       <Landing toggle={toggle} onSaveInput={handeSaveInput} />
+//     </div>
+//   );
+// } else {
+//   return (
+//     // render the header component
+//     <div className="app">
+//       <Header toggle={toggle} saveInput={saveInput} items={items} />
+//       <List items={items} />
+//       <footer className="footer"></footer>
+//     </div>
+//   );
+// }
