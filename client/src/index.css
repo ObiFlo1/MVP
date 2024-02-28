@@ -52,8 +52,13 @@ button {
 }
 
 .list {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: rgba(0, 0, 0, 0.5) 1px solid;
+  padding: 0; /* Remove default padding */
+}
+
+.list li {
+  list-style: none; /* Remove default list style (bullet) */
+  margin-bottom: 10px; /* Add spacing between items */
+  padding: 10px; /* Add padding to each item */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius for rounded corners */
 }

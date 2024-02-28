@@ -48,6 +48,19 @@ app.post("/users", async (req, res) => {
   }
 });
 
+app.post("/todos", async (req, res) => {
+  const { item } = req.body;
+  try {
+    const result = await pool.query(
+      `INSERT INTO todos(list) VALUES($1) RETURNING *`,
+      [item]
+    );
+    res.json({ item: result.rows });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`listening on PORT: ${PORT}`);
 });

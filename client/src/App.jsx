@@ -18,6 +18,10 @@ function App() {
     setWindow((prevWindow) =>
       prevWindow === "landing" ? "header" : "landing"
     );
+    //Reset List when toggling back to the landing page
+    if (window === "header") {
+      setItems([]);
+    }
   }
 
   //this is to get data. eventually
@@ -33,11 +37,26 @@ function App() {
     console.log(items);
   }, [items]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (newItem.trim() !== "") {
-      setItems((prevItems) => [...prevItems, newItem]);
-      setNewItem("");
+      try {
+        const response = await fetch("http://localhost:7001/todos", {
+          method: "POST",
+          header: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: newItem }), // Sends entered item to the server
+        });
+        if (!response.ok) {
+          throw new Error("Failed to add ittem");
+        }
+        console.log("Item Added");
+        setItems((prevItems) => [...prevItems, newItem]);
+        setNewItem("");
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -59,13 +78,7 @@ function App() {
               <button className="button" type="submit">
                 Save
               </button>
-              <button
-                className="button"
-                onClick={() => {
-                  toggle();
-                  setNewItem("");
-                }}
-              >
+              <button className="button" onClick={toggle}>
                 Exit
               </button>
             </form>
