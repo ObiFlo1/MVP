@@ -53,3 +53,10 @@ button {
 .footer {
   margin-top: auto;
 }
+
+.list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: rgba(0, 0, 0, 0.5) 1px solid;
+}

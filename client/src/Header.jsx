@@ -1,14 +1,16 @@
 import List from "./List";
 
-function Header({ toggle }) {
+function Header({ toggle, saveInput }) {
+  console.log(saveInput);
   return (
     <div className="list-header">
-      <div>User's To do list</div>
+      <div>{`${saveInput}'s To Do List`}</div>
       <div>
         <List />
       </div>
       <footer className="footer">
         <div>
+          <input />
           <button className="button" onClick={toggle}>
             Save & Exit
           </button>

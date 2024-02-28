@@ -1,10 +1,28 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Landing from "./Landing.jsx";
 import Header from "./Header.jsx";
 
 function App() {
   const [window, setWindow] = useState("landing");
+  const [backendData, setBackendData] = useState([{}]);
+  const [saveInput, setSaveInput] = useState("");
+
+  function handeSaveInput(input) {
+    setSaveInput(input);
+  }
+
+  //this is to get data
+  useEffect(() => {
+    fetch("http://localhost:7001/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+        console.log(data);
+      });
+  }, []);
+
+  //
 
   function toggle() {
     if (window === "landing") {
@@ -19,14 +37,14 @@ function App() {
     return (
       //render the landing component
       <div className="app">
-        <Landing toggle={toggle} />
+        <Landing toggle={toggle} onSaveInput={handeSaveInput} />
       </div>
     );
   } else {
     return (
       // render the header component
       <div className="app">
-        <Header toggle={toggle} />
+        <Header toggle={toggle} saveInput={saveInput} />
       </div>
     );
   }

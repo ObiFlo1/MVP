@@ -3,6 +3,8 @@ CREATE TABLE users (
     name VARCHAR(100)
 );
 
-CREATE TABLE history {
+CREATE TABLE todos (
+    id SERIAL PRIMARY KEY,
+    list VARCHAR(100)
 
-}
+);
