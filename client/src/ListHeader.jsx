@@ -1,13 +1,12 @@
-function Header({ saveInput }) {
-  console.log(saveInput);
+function ListHeader({ saveInput }) {
   return (
-    <div className="header">
-      <div>{`${saveInput}'s To Do List`}</div>
+    <div className="list-header">
+      <div>{`${saveInput}'s To Do List`}</div>=
     </div>
   );
 }
 
-export default Header;
+export default ListHeader;
 
 // return (
 //   <div className="header">

@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Landing from "./Landing.jsx";
-import Header from "./Header.jsx";
+import ListHeader from "./ListHeader.jsx";
 import List from "./List.jsx";
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
   const [backendData, setBackendData] = useState([{}]);
   const [saveInput, setSaveInput] = useState("");
   const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState("");
 
   function handleSaveInput(input) {
     setSaveInput(input);
@@ -19,7 +20,7 @@ function App() {
     );
   }
 
-  //this is to get data
+  //this is to get data. eventually
   useEffect(() => {
     fetch("http://localhost:7001/users")
       .then((response) => response.json())
@@ -32,22 +33,44 @@ function App() {
     console.log(items);
   }, [items]);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (newItem.trim() !== "") {
+      setItems((prevItems) => [...prevItems, newItem]);
+      setNewItem("");
+    }
+  }
+
   return (
     <div className="app">
       {window === "landing" ? (
         <Landing toggle={toggle} onSaveInput={handleSaveInput} />
       ) : (
         <>
-          <Header saveInput={saveInput} toggle={toggle} />
-          <List items={items} />
-          <footer className="footer">
-            <div>
-              <input />
-              <button className="button" onClick={toggle}>
-                Save & Exit
+          <ListHeader saveInput={saveInput} toggle={toggle} />
+
+          <div className="">
+            <form onSubmit={handleSubmit}>
+              <input
+                value={newItem}
+                onChange={(e) => setNewItem(e.target.value)}
+                placeholder="Add new item..."
+              />
+              <button className="button" type="submit">
+                Save
               </button>
-            </div>
-          </footer>
+              <button
+                className="button"
+                onClick={() => {
+                  toggle();
+                  setNewItem("");
+                }}
+              >
+                Exit
+              </button>
+            </form>
+          </div>
+          <List items={items} />
         </>
       )}
     </div>

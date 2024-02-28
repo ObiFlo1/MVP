@@ -16,6 +16,14 @@ body {
   margin-top: 50px;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
 input {
   margin: 11px 0;
   padding: 12px 16px;
@@ -23,15 +31,14 @@ input {
   border: 1.5px solid rgb(230, 232, 236);
 }
 
-.header {
+.list-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   border-bottom: rgba(0, 0, 0, 0.5) 1px solid;
 }
 
-.button-container,
-.info-container {
+.button-container {
   display: flex;
   align-items: center;
 }
@@ -42,16 +49,6 @@ button {
   font-size: 15px;
   border-radius: 12px;
   background-color: transparent;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.footer {
-  margin-top: auto;
 }
 
 .list {
